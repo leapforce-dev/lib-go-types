@@ -1,4 +1,4 @@
-module github.com/Leapforce-nl/go_types
+module github.com/leapforce-libraries/go_types
 
 go 1.13
 
