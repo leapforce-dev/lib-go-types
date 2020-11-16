@@ -56,3 +56,13 @@ func (g *GUID) String() string {
 func (g *GUID) IsSet() bool {
 	return g.UUID != uuid.Nil
 }
+
+func (g *GUID) FromString(guid string) error {
+	id, err := uuid.FromString(guid)
+	if err != nil {
+		return err
+	}
+	g.UUID = id
+
+	return nil
+}
