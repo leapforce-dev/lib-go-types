@@ -78,3 +78,7 @@ func (d1 Date) Before(d2 Date) bool {
 func (d1 Date) After(d2 Date) bool {
 	return d1.Time.After(d2.Time)
 }
+
+func (d1 Date) Between(d2 Date, d3 Date) bool {
+	return (d1.Time.After(d2.Time) && d1.Time.Before(d3.Time)) || (d1.Time.After(d3.Time) && d1.Time.Before(d2.Time))
+}
