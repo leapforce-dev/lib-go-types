@@ -50,3 +50,23 @@ func (d *Date) MarshalJSON() ([]byte, error) {
 
 	return d.Time.MarshalJSON()
 }
+
+// StartDate returns passed date of '1800-01-01' if passed date is nil
+func (d *Date) StartDate() Date {
+	if d != nil {
+		return *d
+	}
+
+	startDate, _ := time.Parse("2006-01-02", "1800-01-01")
+	return Date{startDate}
+}
+
+// EndDate returns passed date of '2099-12-31' if passed date is nil
+func (d *Date) EndDate() Date {
+	if d != nil {
+		return *d
+	}
+
+	endDate, _ := time.Parse("2006-01-02", "2099-12-31")
+	return Date{endDate}
+}
