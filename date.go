@@ -70,3 +70,11 @@ func (d *Date) EndDate() Date {
 	endDate, _ := time.Parse("2006-01-02", "2099-12-31")
 	return Date{endDate}
 }
+
+func (d1 Date) Before(d2 Date) bool {
+	return d1.Time.Before(d2.Time)
+}
+
+func (d1 Date) After(d2 Date) bool {
+	return d1.Time.After(d2.Time)
+}
