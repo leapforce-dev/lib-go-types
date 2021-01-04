@@ -26,6 +26,10 @@ type GUID struct {
 // UnmarshalJSON unmarshals the guid to uuid.UUID returned from the
 // Exact Online API.
 func (g *GUID) UnmarshalJSON(b []byte) error {
+	if g == nil {
+		return nil
+	}
+
 	str := string(b)
 	if str == "null" { //added because ExactOnline contains GUIDs with value "null"
 		return nil
@@ -46,6 +50,9 @@ func (g *GUID) MarshalJSON() ([]byte, error) {
 }
 
 func (g *GUID) String() string {
+	if g == nil {
+		return ""
+	}
 	if !g.IsSet() {
 		return ""
 	}
