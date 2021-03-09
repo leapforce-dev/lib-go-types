@@ -7,6 +7,7 @@ package types
 
 import (
 	"encoding/json"
+	"encoding/xml"
 	"fmt"
 	"strings"
 
@@ -36,6 +37,29 @@ func (g *GUID) UnmarshalJSON(b []byte) error {
 	}
 
 	s := []byte(strings.Replace(string(b), `"`, "", -1))
+	err := (&g.UUID).UnmarshalText(s)
+	if err != nil {
+		return fmt.Errorf("GUID.UnmarshalJSON() error: %v", err)
+	}
+	return nil
+}
+
+// UnmarshalXML unmarshals the guid to uuid.UUID returned from the
+// Exact Online API.
+func (g *GUID) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	if g == nil {
+		return nil
+	}
+
+	var value string
+	// Read tag content into value
+	d.DecodeElement(&value, &start)
+
+	if value == "null" { //added because ExactOnline contains GUIDs with value "null"
+		return nil
+	}
+
+	s := []byte(strings.Replace(value, `"`, "", -1))
 	err := (&g.UUID).UnmarshalText(s)
 	if err != nil {
 		return fmt.Errorf("GUID.UnmarshalJSON() error: %v", err)
