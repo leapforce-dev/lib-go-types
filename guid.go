@@ -32,7 +32,7 @@ func (g *GUID) UnmarshalJSON(b []byte) error {
 	}
 
 	str := string(b)
-	if str == "null" { //added because ExactOnline contains GUIDs with value "null"
+	if str == "" || str == "null" { //added because ExactOnline contains GUIDs with value "null"
 		return nil
 	}
 
@@ -47,7 +47,6 @@ func (g *GUID) UnmarshalJSON(b []byte) error {
 // UnmarshalXML unmarshals the guid to uuid.UUID returned from the
 // Exact Online API.
 func (g *GUID) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
-	fmt.Println("UnmarshalXML")
 	if g == nil {
 		return nil
 	}
@@ -56,13 +55,7 @@ func (g *GUID) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
 	// Read tag content into value
 	d.DecodeElement(&value, &start)
 
-	fmt.Println(value)
-
-	if value == "" {
-		return nil
-	}
-
-	if value == "null" { //added because ExactOnline contains GUIDs with value "null"
+	if value == "" || value == "null" { //added because ExactOnline contains GUIDs with value "null"
 		return nil
 	}
 
