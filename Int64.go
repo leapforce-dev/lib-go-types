@@ -22,3 +22,12 @@ func (i *Int64) UnmarshalJSON(b []byte) error {
 	*i = Int64(_i)
 	return nil
 }
+
+func (i *Int64) Value() *int64 {
+	if i == nil {
+		return nil
+	}
+
+	_i := int64(*i)
+	return &_i
+}
