@@ -27,11 +27,15 @@ func (i *Int64String) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
-func (i *Int64String) Value() *int64 {
+func (i *Int64String) ValuePtr() *int64 {
 	if i == nil {
 		return nil
 	}
 
 	_i := int64(*i)
 	return &_i
+}
+
+func (i Int64String) Value() int64 {
+	return int64(i)
 }
