@@ -10,7 +10,7 @@ type Int64String int64
 func (i *Int64String) UnmarshalJSON(b []byte) error {
 	unquoted, err := strconv.Unquote(string(b))
 	if err != nil {
-		return nil
+		return err
 	}
 
 	if strings.Trim(unquoted, " ") == "" {
