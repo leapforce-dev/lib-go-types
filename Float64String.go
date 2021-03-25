@@ -1,6 +1,7 @@
 package types
 
 import (
+	"encoding/json"
 	"strconv"
 	"strings"
 )
@@ -8,17 +9,21 @@ import (
 type Float64String float64
 
 func (f *Float64String) UnmarshalJSON(b []byte) error {
-	unquoted, err := strconv.Unquote(string(b))
+	var s string
+
+	err := json.Unmarshal(b, &s)
 	if err != nil {
 		return err
 	}
 
-	if strings.Trim(unquoted, " ") == "" {
+	s = strings.Trim(s, " ")
+
+	if s == "" {
 		f = nil
 		return nil
 	}
 
-	_f, err := strconv.ParseFloat(unquoted, 64)
+	_f, err := strconv.ParseFloat(s, 64)
 	if err != nil {
 		return err
 	}

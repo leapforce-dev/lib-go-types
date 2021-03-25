@@ -1,24 +1,28 @@
 package types
 
 import (
-	"strconv"
+	"encoding/json"
 	"strings"
 )
 
 type String string
 
 func (s *String) UnmarshalJSON(b []byte) error {
-	unquoted, err := strconv.Unquote(string(b))
+	var st string
+
+	err := json.Unmarshal(b, &st)
 	if err != nil {
 		return err
 	}
 
-	if strings.Trim(unquoted, " ") == "" {
+	st = strings.Trim(st, " ")
+
+	if st == "" {
 		s = nil
 		return nil
 	}
 
-	*s = String(unquoted)
+	*s = String(st)
 	return nil
 }
 
