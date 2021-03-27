@@ -3,16 +3,23 @@ package types
 import (
 	"encoding/json"
 	"fmt"
+
+	errortools "github.com/leapforce-libraries/go_errortools"
 )
 
 type BoolInt bool
 
 func (bl *BoolInt) UnmarshalJSON(b []byte) error {
+	var returnError = func() error {
+		errortools.CaptureError(fmt.Sprintf("Cannot parse '%s' to BoolInt", string(b)))
+		return nil
+	}
+
 	var i int
 
 	err := json.Unmarshal(b, &i)
 	if err != nil {
-		return err
+		return returnError()
 	}
 
 	if i == 0 {
@@ -25,7 +32,7 @@ func (bl *BoolInt) UnmarshalJSON(b []byte) error {
 		return nil
 	}
 
-	return fmt.Errorf("Cannot parse '%s' to BoolInt", string(b))
+	return returnError()
 }
 
 func (bl *BoolInt) ValuePtr() *bool {

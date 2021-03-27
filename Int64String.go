@@ -2,19 +2,27 @@ package types
 
 import (
 	"encoding/json"
+	"fmt"
 	"strconv"
 	"strings"
+
+	errortools "github.com/leapforce-libraries/go_errortools"
 )
 
 type Int64String int64
 type Int64Strings []Int64String
 
 func (i *Int64String) UnmarshalJSON(b []byte) error {
+	var returnError = func() error {
+		errortools.CaptureError(fmt.Sprintf("Cannot parse '%s' to Int64String", string(b)))
+		return nil
+	}
+
 	var s string
 
 	err := json.Unmarshal(b, &s)
 	if err != nil {
-		return err
+		return returnError()
 	}
 
 	s = strings.Trim(s, " ")
@@ -26,7 +34,7 @@ func (i *Int64String) UnmarshalJSON(b []byte) error {
 
 	_i, err := strconv.ParseInt(s, 10, 64)
 	if err != nil {
-		return err
+		return returnError()
 	}
 
 	*i = Int64String(_i)

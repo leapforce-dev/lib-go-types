@@ -4,14 +4,21 @@ import (
 	"fmt"
 	"strconv"
 	"strings"
+
+	errortools "github.com/leapforce-libraries/go_errortools"
 )
 
 type BoolString bool
 
 func (bl *BoolString) UnmarshalJSON(b []byte) error {
+	var returnError = func() error {
+		errortools.CaptureError(fmt.Sprintf("Cannot parse '%s' to BoolString", string(b)))
+		return nil
+	}
+
 	unquoted, err := strconv.Unquote(string(b))
 	if err != nil {
-		return err
+		return returnError()
 	}
 
 	if strings.Trim(unquoted, " ") == "" {
@@ -21,7 +28,7 @@ func (bl *BoolString) UnmarshalJSON(b []byte) error {
 
 	i, err := strconv.ParseInt(unquoted, 10, 64)
 	if err != nil {
-		return err
+		return returnError()
 	}
 
 	if i == 0 {
@@ -34,7 +41,7 @@ func (bl *BoolString) UnmarshalJSON(b []byte) error {
 		return nil
 	}
 
-	return fmt.Errorf("Cannot parse '%s' to BoolString", string(b))
+	return returnError()
 }
 
 func (bl *BoolString) ValuePtr() *bool {

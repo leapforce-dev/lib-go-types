@@ -2,18 +2,25 @@ package types
 
 import (
 	"encoding/json"
+	"fmt"
 	"strconv"
 	"strings"
+
+	errortools "github.com/leapforce-libraries/go_errortools"
 )
 
 type Float64String float64
 
 func (f *Float64String) UnmarshalJSON(b []byte) error {
+	var returnError = func() error {
+		errortools.CaptureError(fmt.Sprintf("Cannot parse '%s' to Float64String", string(b)))
+		return nil
+	}
 	var s string
 
 	err := json.Unmarshal(b, &s)
 	if err != nil {
-		return err
+		return returnError()
 	}
 
 	s = strings.Trim(s, " ")
@@ -25,7 +32,7 @@ func (f *Float64String) UnmarshalJSON(b []byte) error {
 
 	_f, err := strconv.ParseFloat(s, 64)
 	if err != nil {
-		return err
+		return returnError()
 	}
 
 	*f = Float64String(_f)

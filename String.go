@@ -2,17 +2,25 @@ package types
 
 import (
 	"encoding/json"
+	"fmt"
 	"strings"
+
+	errortools "github.com/leapforce-libraries/go_errortools"
 )
 
 type String string
 
 func (s *String) UnmarshalJSON(b []byte) error {
+	var returnError = func() error {
+		errortools.CaptureError(fmt.Sprintf("Cannot parse '%s' to String", string(b)))
+		return nil
+	}
+
 	var st string
 
 	err := json.Unmarshal(b, &st)
 	if err != nil {
-		return err
+		return returnError()
 	}
 
 	st = strings.Trim(st, " ")
