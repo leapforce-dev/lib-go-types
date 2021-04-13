@@ -89,6 +89,9 @@ func (g *GUID) String() string {
 
 // IsSet checks if the GUID/uuid actually exists
 func (g *GUID) IsSet() bool {
+	if g == nil {
+		return false
+	}
 	return g.UUID != uuid.Nil
 }
 
