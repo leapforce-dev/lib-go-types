@@ -73,6 +73,9 @@ func (g *GUID) MarshalJSON() ([]byte, error) {
 	if g == nil {
 		return json.Marshal(nil)
 	}
+	if !g.IsSet() {
+		return json.Marshal(nil)
+	}
 
 	return json.Marshal(g.String())
 }
