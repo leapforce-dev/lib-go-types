@@ -19,6 +19,11 @@ func NewGUID() GUID {
 	return GUID{UUID: uuid.Must(uuid.NewV4())}
 }
 
+// NewGUID generates a new nil GUID.
+func NewGUIDNil() GUID {
+	return GUID{UUID: uuid.Nil}
+}
+
 // GUID allows for unmarshalling the urls returned by Exact.
 type GUID struct {
 	uuid.UUID
