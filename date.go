@@ -26,6 +26,12 @@ func NewDate(t *time.Time) Date {
 	return d
 }
 
+// NewDatePtr generates a pointer to a new Date.
+func NewDatePtr(t *time.Time) *Date {
+	d := NewDate(t)
+	return &d
+}
+
 // IsSet returns a boolean if the Date is actually set.
 func (d *Date) IsSet() bool {
 	return !d.IsZero()
