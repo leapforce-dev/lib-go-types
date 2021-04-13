@@ -17,6 +17,15 @@ type Date struct {
 	time.Time
 }
 
+// NewDate generates a new Date.
+func NewDate(t *time.Time) Date {
+	d := Date{}
+	if t != nil {
+		d.Time = *t
+	}
+	return d
+}
+
 // IsSet returns a boolean if the Date is actually set.
 func (d *Date) IsSet() bool {
 	return !d.IsZero()
