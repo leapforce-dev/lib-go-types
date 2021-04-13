@@ -70,6 +70,10 @@ func (g *GUID) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
 // MarshalJSON marshals the url to a format expected by the
 // Exact Online API.
 func (g *GUID) MarshalJSON() ([]byte, error) {
+	if g == nil {
+		return json.Marshal(nil)
+	}
+
 	return json.Marshal(g.String())
 }
 
