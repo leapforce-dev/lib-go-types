@@ -101,3 +101,13 @@ func (g *GUID) FromString(guid string) error {
 
 	return nil
 }
+
+func (g *GUID) Equal(g1 *GUID) bool {
+	if g == nil && g1 == nil {
+		return true
+	}
+	if g == nil || g1 == nil {
+		return false
+	}
+	return g.String() == g1.String()
+}
