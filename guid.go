@@ -95,6 +95,17 @@ func (g *GUID) String() string {
 	return g.UUID.String()
 }
 
+func (g *GUID) StringPtr() *string {
+	if g == nil {
+		return nil
+	}
+	if !g.IsSet() {
+		return nil
+	}
+	s := g.UUID.String()
+	return &s
+}
+
 // IsSet checks if the GUID/uuid actually exists
 func (g *GUID) IsSet() bool {
 	if g == nil {
