@@ -26,6 +26,16 @@ func (bl *BoolString) UnmarshalJSON(b []byte) error {
 		return nil
 	}
 
+	if strings.ToLower(unquoted) == "false" {
+		*bl = false
+		return nil
+	}
+
+	if strings.ToLower(unquoted) == "true" {
+		*bl = true
+		return nil
+	}
+
 	i, err := strconv.ParseInt(unquoted, 10, 64)
 	if err != nil {
 		return returnError()
