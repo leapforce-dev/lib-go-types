@@ -41,6 +41,24 @@ func (i *Int64String) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+func (i Int64String) MarshalJSON() ([]byte, error) {
+	return json.Marshal(fmt.Sprintf("%v", i))
+}
+
+/*
+func (i *Int64String) MarshalJSON() ([]byte, error) {
+	fmt.Println(i)
+
+	var s *string = nil
+
+	if i != nil {
+		_s := fmt.Sprintf("%v", *i)
+		s = &_s
+	}
+
+	return json.Marshal(s)
+}*/
+
 func (i *Int64String) ValuePtr() *int64 {
 	if i == nil {
 		return nil

@@ -39,6 +39,10 @@ func (f *Float64String) UnmarshalJSON(b []byte) error {
 	return nil
 }
 
+func (f Float64String) MarshalJSON() ([]byte, error) {
+	return json.Marshal(fmt.Sprintf("%v", f))
+}
+
 func (f *Float64String) ValuePtr() *float64 {
 	if f == nil {
 		return nil

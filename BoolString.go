@@ -1,6 +1,7 @@
 package types
 
 import (
+	"encoding/json"
 	"fmt"
 	"strconv"
 	"strings"
@@ -52,6 +53,10 @@ func (bl *BoolString) UnmarshalJSON(b []byte) error {
 	}
 
 	return returnError()
+}
+
+func (bl BoolString) MarshalJSON() ([]byte, error) {
+	return json.Marshal(fmt.Sprintf("%v", bl))
 }
 
 func (bl *BoolString) ValuePtr() *bool {

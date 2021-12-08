@@ -35,6 +35,14 @@ func (bl *BoolInt) UnmarshalJSON(b []byte) error {
 	return returnError()
 }
 
+func (bl BoolInt) MarshalJSON() ([]byte, error) {
+	i := 0
+	if bool(bl) {
+		i = 1
+	}
+	return json.Marshal(i)
+}
+
 func (bl *BoolInt) ValuePtr() *bool {
 	if bl == nil {
 		return nil
