@@ -14,44 +14,44 @@ import (
 	"github.com/gofrs/uuid"
 )
 
-// NewGUID generates a new GUID.
-func NewGUID() GUID {
-	return GUID{UUID: uuid.Must(uuid.NewV4())}
+// NewGuid generates a new Guid.
+func NewGuid() Guid {
+	return Guid{UUID: uuid.Must(uuid.NewV4())}
 }
 
-// NewGUID generates a new nil GUID.
-func NewGUIDNil() GUID {
-	return GUID{UUID: uuid.Nil}
+// NewGuid generates a new nil Guid.
+func NewGuidNil() Guid {
+	return Guid{UUID: uuid.Nil}
 }
 
-// GUID allows for unmarshalling the urls returned by Exact.
-type GUID struct {
+// Guid allows for unmarshalling the urls returned by Exact.
+type Guid struct {
 	uuid.UUID
 }
 
 // UnmarshalJSON unmarshals the guid to uuid.UUID returned from the
 // Exact Online API.
-func (g *GUID) UnmarshalJSON(b []byte) error {
+func (g *Guid) UnmarshalJSON(b []byte) error {
 	if g == nil {
 		return nil
 	}
 
 	str := string(b)
-	if str == "" || str == "null" { //added because ExactOnline contains GUIDs with value "null"
+	if str == "" || str == "null" { //added because ExactOnline contains Guids with value "null"
 		return nil
 	}
 
 	s := []byte(strings.Replace(string(b), `"`, "", -1))
 	err := (&g.UUID).UnmarshalText(s)
 	if err != nil {
-		return fmt.Errorf("GUID.UnmarshalJSON() error: %v", err)
+		return fmt.Errorf("Guid.UnmarshalJSON() error: %v", err)
 	}
 	return nil
 }
 
 // UnmarshalXML unmarshals the guid to uuid.UUID returned from the
 // Exact Online API.
-func (g *GUID) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+func (g *Guid) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
 	if g == nil {
 		return nil
 	}
@@ -60,21 +60,21 @@ func (g *GUID) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
 	// Read tag content into value
 	d.DecodeElement(&value, &start)
 
-	if value == "" || value == "null" { //added because ExactOnline contains GUIDs with value "null"
+	if value == "" || value == "null" { //added because ExactOnline contains Guids with value "null"
 		return nil
 	}
 
 	s := []byte(strings.Replace(value, `"`, "", -1))
 	err := (&g.UUID).UnmarshalText(s)
 	if err != nil {
-		return fmt.Errorf("GUID.UnmarshalJSON() error: %v", err)
+		return fmt.Errorf("Guid.UnmarshalJSON() error: %v", err)
 	}
 	return nil
 }
 
 // MarshalJSON marshals the url to a format expected by the
 // Exact Online API.
-func (g *GUID) MarshalJSON() ([]byte, error) {
+func (g *Guid) MarshalJSON() ([]byte, error) {
 	if g == nil {
 		return json.Marshal(nil)
 	}
@@ -85,7 +85,7 @@ func (g *GUID) MarshalJSON() ([]byte, error) {
 	return json.Marshal(g.String())
 }
 
-func (g *GUID) String() string {
+func (g *Guid) String() string {
 	if g == nil {
 		return ""
 	}
@@ -95,7 +95,7 @@ func (g *GUID) String() string {
 	return g.UUID.String()
 }
 
-func (g *GUID) StringPtr() *string {
+func (g *Guid) StringPtr() *string {
 	if g == nil {
 		return nil
 	}
@@ -106,15 +106,15 @@ func (g *GUID) StringPtr() *string {
 	return &s
 }
 
-// IsSet checks if the GUID/uuid actually exists
-func (g *GUID) IsSet() bool {
+// IsSet checks if the Guid/uuid actually exists
+func (g *Guid) IsSet() bool {
 	if g == nil {
 		return false
 	}
 	return g.UUID != uuid.Nil
 }
 
-func (g *GUID) FromString(guid string) error {
+func (g *Guid) FromString(guid string) error {
 	id, err := uuid.FromString(guid)
 	if err != nil {
 		return err
@@ -124,7 +124,7 @@ func (g *GUID) FromString(guid string) error {
 	return nil
 }
 
-func (g *GUID) Equal(g1 *GUID) bool {
+func (g *Guid) Equal(g1 *Guid) bool {
 	if g == nil && g1 == nil {
 		return true
 	}
