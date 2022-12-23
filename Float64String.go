@@ -3,6 +3,7 @@ package types
 import (
 	"encoding/json"
 	"fmt"
+	"regexp"
 	"strconv"
 	"strings"
 
@@ -26,9 +27,18 @@ func (f *Float64String) UnmarshalJSON(b []byte) error {
 	s = strings.Trim(s, " ")
 
 	if s == "" {
-		f = nil
 		return nil
 	}
+
+	/* handle exponential number without 'E' */
+	re := regexp.MustCompile(`\d(-|\+)\d`)
+
+	f1 := re.Find([]byte(s))
+	if f1 != nil {
+		s1 := string(f1)
+		s = strings.Replace(s, s1, s1[:1]+"E"+s1[len(s1)-2:], 1)
+	}
+	/* */
 
 	_f, err := strconv.ParseFloat(s, 64)
 	if err != nil {
