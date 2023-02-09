@@ -50,7 +50,7 @@ func (f *Float64String) UnmarshalJSON(b []byte) error {
 }
 
 func (f Float64String) MarshalJSON() ([]byte, error) {
-	return json.Marshal(fmt.Sprintf("%v", f))
+	return json.Marshal(fmt.Sprintf("%f", f))
 }
 
 func (f *Float64String) ValuePtr() *float64 {
