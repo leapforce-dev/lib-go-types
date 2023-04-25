@@ -18,9 +18,18 @@ func (i *Int64String) UnmarshalJSON(b []byte) error {
 		return nil
 	}
 
+	// first try to parse to int64 directly
+	var ii int64
+
+	err := json.Unmarshal(b, &ii)
+	if err == nil {
+		*i = Int64String(ii)
+		return nil
+	}
+
 	var s string
 
-	err := json.Unmarshal(b, &s)
+	err = json.Unmarshal(b, &s)
 	if err != nil {
 		return returnError()
 	}

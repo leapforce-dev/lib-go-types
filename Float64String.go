@@ -17,9 +17,19 @@ func (f *Float64String) UnmarshalJSON(b []byte) error {
 		errortools.CaptureError(fmt.Sprintf("Cannot parse '%s' to Float64String", string(b)))
 		return nil
 	}
+
+	// first try to parse to float64 directly
+	var ii float64
+
+	err := json.Unmarshal(b, &ii)
+	if err == nil {
+		*f = Float64String(ii)
+		return nil
+	}
+
 	var s string
 
-	err := json.Unmarshal(b, &s)
+	err = json.Unmarshal(b, &s)
 	if err != nil {
 		return returnError()
 	}
