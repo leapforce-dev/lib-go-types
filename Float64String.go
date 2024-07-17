@@ -10,7 +10,10 @@ import (
 	errortools "github.com/leapforce-libraries/go_errortools"
 )
 
-type Float64String float64
+type Float64String struct {
+	f      float64
+	format string
+}
 
 func (f *Float64String) UnmarshalJSON(b []byte) error {
 	var returnError = func() error {
@@ -23,7 +26,7 @@ func (f *Float64String) UnmarshalJSON(b []byte) error {
 
 	err := json.Unmarshal(b, &ii)
 	if err == nil {
-		*f = Float64String(ii)
+		*f = Float64String{ii, extractFormat(fmt.Sprintf("%v", ii))}
 		return nil
 	}
 
@@ -55,12 +58,27 @@ func (f *Float64String) UnmarshalJSON(b []byte) error {
 		return returnError()
 	}
 
-	*f = Float64String(_f)
+	*f = Float64String{_f, extractFormat(s)}
 	return nil
 }
 
+func extractFormat(s string) string {
+	s_ := strings.Split(s, ".")
+	if len(s_) == 1 {
+		return "%.0f"
+	} else if len(s_) == 2 {
+		return "%" + fmt.Sprintf(".%vf", len(s_[1]))
+	}
+
+	return "%f"
+}
+
 func (f Float64String) MarshalJSON() ([]byte, error) {
-	return json.Marshal(fmt.Sprintf("%f", f))
+	format := "%f"
+	if f.format != "" {
+		format = f.format
+	}
+	return json.Marshal(fmt.Sprintf(format, f.f))
 }
 
 func (f *Float64String) ValuePtr() *float64 {
@@ -68,10 +86,22 @@ func (f *Float64String) ValuePtr() *float64 {
 		return nil
 	}
 
-	_f := float64(*f)
-	return &_f
+	return &f.f
 }
 
 func (f Float64String) Value() float64 {
-	return float64(f)
+	return f.f
+}
+
+func NewFloat64String(f float64) Float64String {
+	return Float64String{
+		f:      f,
+		format: extractFormat(fmt.Sprintf("%v", f)),
+	}
+}
+
+func (f *Float64String) SetFormat(format string) {
+	if f != nil {
+		f.format = format
+	}
 }
