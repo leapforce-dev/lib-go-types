@@ -100,6 +100,15 @@ func NewFloat64String(f float64) Float64String {
 	}
 }
 
+func NewFloat64StringFromFloat32(f32 float32) Float64String {
+	s := fmt.Sprintf("%v", f32)
+	f, _ := strconv.ParseFloat(s, 64)
+	return Float64String{
+		f:      f,
+		format: extractFormat(s),
+	}
+}
+
 func (f *Float64String) SetFormat(format string) {
 	if f != nil {
 		f.format = format
