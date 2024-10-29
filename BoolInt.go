@@ -3,7 +3,7 @@ package types
 import (
 	"encoding/json"
 	"fmt"
-	errortools "github.com/leapforce-dev/lib-go-errortools"
+	errortools "github.com/leapforce-libraries/go_errortools"
 )
 
 type BoolInt bool

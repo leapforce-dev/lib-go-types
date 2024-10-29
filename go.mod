@@ -1,11 +1,11 @@
-module github.com/leapforce-dev/lib-go-types
+module github.com/leapforce-libraries/go_types
 
 go 1.22
 
 require (
 	cloud.google.com/go v0.116.0
 	github.com/gofrs/uuid v4.4.0+incompatible
-	github.com/leapforce-dev/lib-go-errortools v0.0.0-20241029164741-68975aaea68b
+	github.com/leapforce-libraries/go_errortools v0.0.0-20241029220115-b5c993a285b0
 )
 
 require (

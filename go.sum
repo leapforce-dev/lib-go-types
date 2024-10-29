@@ -10,8 +10,8 @@ github.com/gofrs/uuid v4.4.0+incompatible h1:3qXRTX8/NbyulANqlc0lchS1gqAVxRgsuW1
 github.com/gofrs/uuid v4.4.0+incompatible/go.mod h1:b2aQJv3Z4Fp6yNu3cdSllBxTCLRxnplIgP/c0N/04lM=
 github.com/google/go-cmp v0.6.0 h1:ofyhxvXcZhMsU5ulbFiLKl/XBFqE1GSq7atu8tAmTRI=
 github.com/google/go-cmp v0.6.0/go.mod h1:17dUlkBOakJ0+DkrSSNjCkIjxS6bF9zb3elmeNGIjoY=
-github.com/leapforce-dev/lib-go-errortools v0.0.0-20241029164741-68975aaea68b h1:DizIPffulvI6UY4PqjhoDVUql0zMGQzEcuAYSbccHfI=
-github.com/leapforce-dev/lib-go-errortools v0.0.0-20241029164741-68975aaea68b/go.mod h1:eX+j7iL9ci68iuGDrr1UEONpUaHKrlGObWqxEZ3mj4g=
+github.com/leapforce-libraries/go_errortools v0.0.0-20241029220115-b5c993a285b0 h1:x1KmrNhp7y8nG+8HNX/eKsA2Q8etDzk1JTmsWvGzis0=
+github.com/leapforce-libraries/go_errortools v0.0.0-20241029220115-b5c993a285b0/go.mod h1:ytvUwp/lSpq5yhKSQf8nilA8BKz0uCG0WAr6q55o/7g=
 github.com/pingcap/errors v0.11.4 h1:lFuQV/oaUMGcD2tqt+01ROSmJs75VG1ToEOkZIZ4nE4=
 github.com/pingcap/errors v0.11.4/go.mod h1:Oi8TUi2kEtXXLMJk9l1cGmz20kV3TaQ0usTwv5KuLY8=
 github.com/pkg/errors v0.9.1 h1:FEBLx1zS214owpjy7qsBeixbURkuhQAwrK5UwLGTwt4=
