@@ -9,9 +9,8 @@ import (
 	"encoding/json"
 	"encoding/xml"
 	"fmt"
-	"strings"
-
 	"github.com/gofrs/uuid"
+	"strings"
 )
 
 // NewGuid generates a new Guid.

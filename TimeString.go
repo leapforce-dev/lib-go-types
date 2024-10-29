@@ -1,12 +1,11 @@
 package types
 
 import (
+	"cloud.google.com/go/civil"
 	"encoding/json"
 	"fmt"
+	errortools "github.com/leapforce-dev/lib-go-errortools"
 	"strings"
-
-	"cloud.google.com/go/civil"
-	errortools "github.com/leapforce-libraries/go_errortools"
 )
 
 type TimeString civil.Time

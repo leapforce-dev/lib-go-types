@@ -1,15 +1,15 @@
-module github.com/leapforce-libraries/go_types
+module github.com/leapforce-dev/lib-go-types
 
 go 1.22
 
 require (
-	cloud.google.com/go v0.115.0
+	cloud.google.com/go v0.116.0
 	github.com/gofrs/uuid v4.4.0+incompatible
-	github.com/leapforce-libraries/go_errortools v0.0.0-20230306211452-9ccee0cdafe8
+	github.com/leapforce-dev/lib-go-errortools v0.0.0-20241029164741-68975aaea68b
 )
 
 require (
-	github.com/getsentry/sentry-go v0.19.0 // indirect
-	golang.org/x/sys v0.20.0 // indirect
-	golang.org/x/text v0.15.0 // indirect
+	github.com/getsentry/sentry-go v0.29.1 // indirect
+	golang.org/x/sys v0.25.0 // indirect
+	golang.org/x/text v0.18.0 // indirect
 )
